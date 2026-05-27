@@ -1,7 +1,7 @@
 package org.example.util;
 
 
-import org.example.builder.Car;
+import org.example.model.Car;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
