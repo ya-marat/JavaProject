@@ -5,7 +5,7 @@ import org.example.model.Car;
 
 import java.util.List;
 
-public interface Input {
+public interface Input<T> {
 
-    CustomList<Car> load();
+    CustomList<T> load(int count);
 }

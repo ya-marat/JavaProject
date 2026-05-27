@@ -45,6 +45,11 @@ public class CustomList<T> implements Iterable<T> {
         return size;
     }
 
+    public void clear() {
+        elements = new Object[DEFAULT_SIZE];
+        size = 0;
+    }
+
     private void resize() {
         Object[] newData = new Object[elements.length * 2];
         System.arraycopy(elements, 0, newData, 0, elements.length);
