@@ -1,6 +1,6 @@
 package org.example.model;
 
-public class Car implements Comparable<Car> {
+public class Car {
     private final int power;
     private final String model;
     private final int year;
