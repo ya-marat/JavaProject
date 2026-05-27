@@ -1,8 +1,11 @@
 package org.example.input;
 
+import org.example.list.CustomList;
+import org.example.model.Car;
+
 import java.util.List;
 
-public interface Input<T> {
+public interface Input {
 
-    List<T> load();
+    CustomList<Car> load();
 }
