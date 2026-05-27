@@ -1,4 +1,8 @@
 package org.example.input;
 
-public class Input {
+import java.util.List;
+
+public interface Input<T> {
+
+    List<T> load();
 }
