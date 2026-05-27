@@ -1,4 +1,4 @@
-package org.example.builder;
+package org.example.model;
 
 public class Car implements Comparable<Car> {
     private final int power;
