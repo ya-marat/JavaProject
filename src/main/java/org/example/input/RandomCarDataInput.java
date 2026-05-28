@@ -50,11 +50,6 @@ public class RandomCarDataInput implements Input<Car> {
         return result;
     }
 
-    @Override
-    public CustomList<Car> load(String path) {
-        return null;
-    }
-
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }

@@ -1,6 +1,5 @@
-package org.example.input;
+package org.example.util;
 
-import org.example.list.CustomList;
 import org.example.model.Car;
 
 import java.io.IOException;
@@ -10,19 +9,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataFromFile implements Input<Car> {
-
-    @Override
-    public CustomList<Car> load(String path) {
+public class DataFromFile {
+    public static ArrayList<Car> readFromFile(String path) {
         Path filePath = Paths.get(path);
-        CustomList<Car> cars = new CustomList<>();
+        ArrayList<Car> cars = new ArrayList<>();
 
         try {
             List<String> lines = Files.readAllLines(filePath);
 
             for (String line : lines) {
                 String[] parts = line.split(", ");
-                //TODO добавить валидацию типа DataValidator.isValid(parts[0], parts[1], parts[2])
+                //ToDo добавить валидацию типа DataValidator.isValid(parts[0], parts[1], parts[2])
                 if (parts.length == 3) {
                     cars.add(new Car.Builder()
                             .setPower(Integer.parseInt(parts[0]))
@@ -37,10 +34,5 @@ public class DataFromFile implements Input<Car> {
             System.out.println("Ошибка чтения файла: " + e.getMessage());
             return null;
         }
-    }
-
-    @Override
-    public CustomList<Car> load(int count) {
-        return null;
     }
 }
