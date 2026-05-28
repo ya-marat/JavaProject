@@ -1,9 +1,9 @@
 package org.example.list;
 
-import java.util.ArrayList;
+import java.util.AbstractList;
 import java.util.Iterator;
 
-public class CustomList<T> implements Iterable<T> {
+public class CustomList<T> extends AbstractList<T> {
 
     private final int DEFAULT_SIZE = 10;
 
@@ -14,37 +14,47 @@ public class CustomList<T> implements Iterable<T> {
         elements = new Object[DEFAULT_SIZE];
     }
 
-    public void add(T element) {
+    @Override
+    public boolean add(T element) {
         if (size == elements.length) {
             resize();
         }
 
         elements[size++] = element;
+        return true;
     }
 
+    @Override
     public T get(int index) {
         checkIndex(index);
         return (T) elements[index];
     }
 
-    public void set(int index, T element) {
+    @Override
+    public T set(int index, T element) {
         checkIndex(index);
         elements[index] = element;
+        return element;
     }
 
-    public void remove(int index) {
+    @Override
+    public T remove(int index) {
         checkIndex(index);
+        T removedElement = (T) elements[index];
         for (int i = index; i < size - 1; i++) {
             elements[i] = elements[i + 1];
         }
 
         elements[--size] = null;
+        return removedElement;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public void clear() {
         elements = new Object[DEFAULT_SIZE];
         size = 0;
@@ -61,23 +71,5 @@ public class CustomList<T> implements Iterable<T> {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-        return new Iterator<T>() {
-
-            private int currentIndex = 0;
-
-            @Override
-            public boolean hasNext() {
-                return currentIndex < size;
-            }
-
-            @Override
-            public T next() {
-                return (T) elements[currentIndex++];
-            }
-        };
     }
 }
