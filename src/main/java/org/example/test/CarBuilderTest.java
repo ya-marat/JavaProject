@@ -22,8 +22,4 @@ public class CarBuilderTest {
             System.out.println("CarBuilderTest.testCreation FAILED!");
         }
     }
-
-    public static void testValidation() {
-
-    }
 }

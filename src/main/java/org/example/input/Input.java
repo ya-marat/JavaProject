@@ -8,4 +8,6 @@ import java.util.List;
 public interface Input<T> {
 
     CustomList<T> load(int count);
+
+    CustomList<T> load(String path);
 }
