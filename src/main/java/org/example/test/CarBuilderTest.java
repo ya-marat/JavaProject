@@ -12,18 +12,19 @@ public class CarBuilderTest {
                 .build();
 
         boolean exist = car != null;
-        boolean powerTest = car.getPower() == 100;
-        boolean modelTest = car.getModel().equals("BMW");
-        boolean yearTest = car.getYear() == 2020;
 
-        if (exist && powerTest && modelTest && yearTest) {
-            System.out.println("CarBuilderTest.testCreation PASSED!");
+        if (exist) {
+            boolean powerTest = car.getPower() == 100;
+            boolean modelTest = car.getModel().equals("BMW");
+            boolean yearTest = car.getYear() == 2020;
+
+            if (powerTest && modelTest && yearTest) {
+                System.out.println("CarBuilderTest.testCreation PASSED!");
+            } else {
+                System.out.println("CarBuilderTest.testCreation FAILED!");
+            }
         } else {
             System.out.println("CarBuilderTest.testCreation FAILED!");
         }
-    }
-
-    public static void testValidation() {
-
     }
 }

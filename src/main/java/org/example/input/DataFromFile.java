@@ -7,11 +7,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DataFromFile implements Input<Car>{
-    private final String FILE_PATH = "Cars.txt";
+    private final String FILE_PATH = "src/main/java/org/example/test/Cars.txt";
 
     @Override
     public CustomList<Car> load(int count) {
@@ -33,7 +32,7 @@ public class DataFromFile implements Input<Car>{
                     cars.add(new Car.Builder()
                             .setPower(Integer.parseInt(parts[0]))
                             .setModel(parts[1])
-                            .setPower(Integer.parseInt(parts[2]))
+                            .setYear(Integer.parseInt(parts[2]))
                             .build());
                 }
                 counter++;
@@ -42,6 +41,7 @@ public class DataFromFile implements Input<Car>{
         }
         catch (IOException e) {
             System.out.println("Ошибка чтения файла: " + e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
