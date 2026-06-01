@@ -19,7 +19,8 @@ public class DataFromFile {
 
             for (String line : lines) {
                 String[] parts = line.split(", ");
-                if (parts.length == 3 && DataValidator.isValid(parts[0], parts[1], parts[2])) {
+                //TODO реализовать DataValidator.isValid(parts[0], parts[1], parts[2])
+                if (parts.length == 3) {
                     cars.add(new Car.Builder()
                             .setPower(Integer.parseInt(parts[0]))
                             .setModel(parts[1])
