@@ -1,6 +1,6 @@
 package org.example.model;
 
-public class Car implements Comparable<Car> {
+public class Car {
     private final int power;
     private final String model;
     private final int year;
@@ -15,25 +15,9 @@ public class Car implements Comparable<Car> {
     public String getModel() { return model; }
     public int getYear() { return year; }
 
-    // Базовая сортировка по всем 3 полям сразу
-    @Override
-    public int compareTo(Car other) {
-        int idCompare = Integer.compare(this.power, other.power);
-        if (idCompare != 0) {
-            return idCompare;
-        }
-
-        int nameCompare = this.model.compareTo(other.model);
-        if (nameCompare != 0) {
-            return nameCompare;
-        }
-
-        return Integer.compare(this.year, other.year);
-    }
-
     @Override
     public String toString() {
-        return String.format("Product{power=%d, model='%s', year=%d}", power, model, year);
+        return String.format("Car{power=%d, model='%s', year=%d}", power, model, year);
     }
 
     public static class Builder {
@@ -57,14 +41,8 @@ public class Car implements Comparable<Car> {
         }
 
         public Car build() {
-            validate();
+            //ToDo DataValidator.isValid(power,model,year);
             return new Car(this);
-        }
-
-        private void validate() {
-            if (power <= 0) throw new IllegalArgumentException("Мощность должена быть больше 0");
-            if (model == null || model.trim().isEmpty()) throw new IllegalArgumentException("Модель не заполнена");
-            if (year < 0) throw new IllegalArgumentException("Год выпуска отрицательный");
         }
     }
 }
