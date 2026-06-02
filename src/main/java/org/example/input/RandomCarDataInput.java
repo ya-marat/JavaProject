@@ -2,6 +2,9 @@ package org.example.input;
 
 import org.example.list.CustomList;
 import org.example.model.Car;
+import org.example.validation.Validator;
+
+import java.util.stream.IntStream;
 
 public class RandomCarDataInput implements Input<Car> {
 
@@ -38,14 +41,14 @@ public class RandomCarDataInput implements Input<Car> {
     public CustomList<Car> load(int count) {
         CustomList<Car> result = new CustomList<>();
 
-        for (int i = 0; i < count; i++) {
-            Car newCar = new Car.Builder()
-                    .setModel(carModels[getRandomNumber(0, carModels.length)])
-                    .setPower(getRandomNumber(MIN_POWER_VALUE, MAX_POWER_VALUE))
-                    .setYear(getRandomNumber(MIN_MODEL_YEAR, MAX_MODEL_YEAR))
-                    .build();
-            result.add(newCar);
-        }
+        IntStream.range(0, count)
+                .mapToObj(i -> new Car.Builder()
+                        .setModel(carModels[getRandomNumber(0, carModels.length)])
+                        .setPower(getRandomNumber(MIN_POWER_VALUE, MAX_POWER_VALUE))
+                        .setYear(getRandomNumber(MIN_MODEL_YEAR, MAX_MODEL_YEAR))
+                        .build()
+                )
+                .forEach(result::add);
 
         return result;
     }
