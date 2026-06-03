@@ -1,5 +1,7 @@
 package org.example.model;
 
+import java.util.Objects;
+
 public class Car {
     private final int power;
     private final String model;
@@ -18,6 +20,20 @@ public class Car {
     @Override
     public String toString() {
         return String.format("Car{power=%d, model='%s', year=%d}", power, model, year);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other)
+            return true;
+
+        if (!(other instanceof Car))
+            return false;
+
+        Car car = (Car) other;
+        return power == car.power  &&
+                Objects.equals(model, car.model) &&
+                year == car.year;
     }
 
     public static class Builder {

@@ -2,6 +2,7 @@ package org.example.list;
 
 import java.util.AbstractList;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class CustomList<T> extends AbstractList<T> {
 
@@ -71,5 +72,38 @@ public class CustomList<T> extends AbstractList<T> {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
+    }
+
+    public String toString() {
+        StringBuilder list = new StringBuilder("[");
+        for (int i = 0; i < size; i++) {
+            if (i > 0) list.append(", ");
+            list.append(elements[i]);
+        }
+        return list.append("]").toString();
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+
+        if (obj == null) return false;
+
+        if (this.getClass() != obj.getClass()) return false;
+
+        CustomList<T> other = (CustomList<T>) obj;
+
+        if (this.size() != other.size()) return false;
+
+        Iterator<T> thisIter = this.iterator();
+        Iterator<T> otherIter = other.iterator();
+
+        while (thisIter.hasNext()) {
+            T thisElement = thisIter.next();
+            Object otherElement = otherIter.next();
+            if (!Objects.equals(thisElement, otherElement)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
