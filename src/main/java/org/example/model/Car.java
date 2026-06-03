@@ -1,5 +1,7 @@
 package org.example.model;
 
+import org.example.validation.Validator;
+
 import java.util.Objects;
 
 public class Car {
@@ -57,8 +59,13 @@ public class Car {
         }
 
         public Car build() {
-            //ToDo DataValidator.isValid(power,model,year);
-            return new Car(this);
+            try {
+                Validator.validate(power, model, year);
+                return new Car(this);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                return null;
+            }
         }
     }
 }
