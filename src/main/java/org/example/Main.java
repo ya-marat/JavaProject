@@ -126,11 +126,9 @@ public class Main {
 
         switch (type) {
             case 1:
-                cars.
-                //System.out.println("Здесь должна быть сортировка по мощности.");
+                System.out.println("Здесь должна быть сортировка по мощности.");
                 break;
             case 2:
-
                 System.out.println("Здесь должна быть сортировка по модели.");
                 break;
             case 3:
