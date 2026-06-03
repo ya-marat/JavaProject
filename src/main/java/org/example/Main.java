@@ -12,6 +12,7 @@ import org.example.list.CustomList;
 import org.example.model.Car;
 import org.example.util.FileReportWriter;
 import org.example.sort.Sort;
+import org.example.sort.EvenSort;
 
 
 
@@ -54,7 +55,7 @@ public class Main {
                     break;
                 case 3:
                     //TODO: Реализовать, подключить
-                    sortCollection();
+                    sortStyle();
                     break;
                 case 4:
                     //TODO Непонятно FileReportWriter подключить или что-то другое будет создаваться, чтобы добавлять в файл
@@ -97,8 +98,26 @@ public class Main {
                 System.out.println("Ошибка выбора источника.");
         }
     }
+    // Метод выбора алгоритма сортировки
+    private void sortStyle() {
+        System.out.println("Алгоритмы сортировки:\n1 - Обычная сортировка\n2 - сортировка только автомобилей с четной мощностью");
+        System.out.print("Выберите алгоритм: ");
 
-    // Метод сортировки тремя способами
+        int type = scanner.nextInt();
+
+        switch (type) {
+            case 1:
+                sortCollection();
+                break;
+            case 2:
+                System.out.println("сортировка по четной мощности в разработке...");
+                break;
+
+            default:
+                System.out.println("Ошибка выбора алгоритма сортировки.");
+        }
+    }
+    // Метод сортировки по одному из полей
     private void sortCollection() {
         System.out.println("Способы сортировки:\n1 - мощность\n2 - модель\n3 - год производства");
         System.out.print("Выберите поле сортировки: ");
@@ -107,14 +126,13 @@ public class Main {
 
         switch (type) {
             case 1:
-                //sort мощность?
+                System.out.println("Здесь должна быть сортировка по мощности.");
                 break;
             case 2:
-
-                //sort модель?
+                System.out.println("Здесь должна быть сортировка по модели.");
                 break;
             case 3:
-                //sort год производства?;
+                System.out.println("Здесь должна быть сортировка по году производства.");
                 break;
             default:
                 System.out.println("Ошибка выбора типа сортировки.");
