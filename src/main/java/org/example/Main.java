@@ -5,7 +5,13 @@ package org.example;
 
 
 
+import java.util.Comparator;
 import java.util.Scanner;
+
+import org.example.comparator.CarModelComparator;
+import org.example.comparator.CarPowerComparator;
+import org.example.comparator.CarYearComparator;
+import org.example.input.ConsoleCarDataInput;
 import org.example.input.DataFromFile;
 import org.example.input.RandomCarDataInput;
 import org.example.list.CustomList;
@@ -25,7 +31,9 @@ public class Main {
     private CustomList<Car> cars = new CustomList<>();
     private final Scanner scanner = new Scanner(System.in);
     private final RandomCarDataInput randomCarDataInput = new RandomCarDataInput();
-    //private Sort sort = new Sort();
+    private final ConsoleCarDataInput consoleCarDataInput = new ConsoleCarDataInput();
+    private int size;
+
 
 
 
@@ -54,7 +62,7 @@ public class Main {
                     printCollection();
                     break;
                 case 3:
-                    //TODO: Реализовать, подключить
+                    //TODO: Подключено, но сортировка по четной мощности работает странно.
                     sortStyle();
                     break;
                 case 4:
@@ -77,7 +85,7 @@ public class Main {
     // Метод заполнения коллекции тремя способами
     private void fillCollection() {
 
-        int size = sizeOfCollection();
+        this.size = sizeOfCollection();
 
         System.out.println("Способы заполнения:\n1 - из файла\n2 - случайно\n3 - вручную");
         System.out.print("Выберите источник: ");
@@ -92,7 +100,7 @@ public class Main {
                 cars = randomCarDataInput.load(size);
                 break;
             case 3:
-                System.out.println("Ручной ввод пока не реализован.");
+                cars = consoleCarDataInput.load(size);
                 break;
             default:
                 System.out.println("Ошибка выбора источника.");
@@ -100,51 +108,73 @@ public class Main {
     }
     // Метод выбора алгоритма сортировки
     private void sortStyle() {
+        if (cars == null || cars.isEmpty()) {
+            System.out.println("Коллекция пуста. Сортировка невозможна.");
+            return;
+        }
+
         System.out.println("Алгоритмы сортировки:\n1 - Обычная сортировка\n2 - сортировка только автомобилей с четной мощностью");
         System.out.print("Выберите алгоритм: ");
 
         int type = scanner.nextInt();
 
+
+        // 2. CustomList в массив Car[] для работы алгоритмов сравнения
+        Car[] carArray = new Car[size];
+
+        for (int i = 0; i < size; i++) {
+            carArray[i] = cars.get(i);
+        }
+
         switch (type) {
             case 1:
-                sortCollection();
+                Comparator<Car> selectedComparator = chooseComparator();
+                Sort.quickSort(carArray, 0, size - 1, selectedComparator);
+
                 break;
             case 2:
-                System.out.println("сортировка по четной мощности в разработке...");
+                Comparator<Car> chosenComparator = new CarPowerComparator();
+                EvenSort.addCarSort(carArray, chosenComparator);
+
                 break;
 
             default:
                 System.out.println("Ошибка выбора алгоритма сортировки.");
+                return;
+        }
+
+        // 4. Возвращаем отсортированные элементы назад в CustomList
+        for (int i = 0; i < size; i++) {
+            cars.set(i, carArray[i]);
         }
     }
-    // Метод сортировки по одному из полей
-    private void sortCollection() {
-        System.out.println("Способы сортировки:\n1 - мощность\n2 - модель\n3 - год производства");
-        System.out.print("Выберите поле сортировки: ");
 
-        int type = scanner.nextInt();
+    // Вспомогательный метод определения критерия (какой компаратор применить)
+    private Comparator<Car> chooseComparator() {
+        System.out.println("Критерии сравнения:\n1 - Мощность\n2 - Модель\n3 - Год производства");
+        System.out.print("Выберите критерий: ");
 
-        switch (type) {
+        int criterion = scanner.nextInt();
+        switch (criterion) {
             case 1:
-                System.out.println("Здесь должна быть сортировка по мощности.");
-                break;
+                return new CarPowerComparator();
             case 2:
-                System.out.println("Здесь должна быть сортировка по модели.");
-                break;
+                return new CarModelComparator();
             case 3:
-                System.out.println("Здесь должна быть сортировка по году производства.");
-                break;
+                return new CarYearComparator();
             default:
-                System.out.println("Ошибка выбора типа сортировки.");
+                System.out.println("Некорректный выбор. Применен компаратор по году.");
+                return new CarYearComparator();
         }
     }
+
     // Метод установки размера коллекции
     private int sizeOfCollection() {
         System.out.print("Введите количество элементов коллекции: ");
         return scanner.nextInt();
 
-
     }
+
     // Метод вывода коллекции в консоль
     private void printCollection() {
         if (cars == null || cars.isEmpty()) {
@@ -155,7 +185,6 @@ public class Main {
         for (Car car : cars) { System.out.println(car); }
 
     }
-
 
 }
 
