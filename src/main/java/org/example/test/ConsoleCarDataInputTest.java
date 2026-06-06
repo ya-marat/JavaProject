@@ -1,6 +1,6 @@
 package org.example.test;
 
-import org.example.input.ConsoleCarDataInput;
+import org.example.input.ConsoleCarDataCarDataInput;
 import org.example.list.CustomList;
 import org.example.model.Car;
 
@@ -31,7 +31,7 @@ public class ConsoleCarDataInputTest {
         expectedData.add(car2);
         expectedData.add(car3);
 
-        ConsoleCarDataInput consoleCarDataInput = new ConsoleCarDataInput();
+        ConsoleCarDataCarDataInput consoleCarDataInput = new ConsoleCarDataCarDataInput();
         var testData = consoleCarDataInput.load(3);
 
         if (testData.equals(expectedData)) {

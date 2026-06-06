@@ -15,6 +15,10 @@ public class CustomList<T> extends AbstractList<T> {
         elements = new Object[DEFAULT_SIZE];
     }
 
+    public CustomList(int size) {
+        elements = new Object[size];
+    }
+
     @Override
     public boolean add(T element) {
         if (size == elements.length) {

@@ -8,10 +8,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.stream.Stream;
 
-public class DataFromFile implements Input<Car>{
+public class DataFromFile implements CarDataInput {
     private final String FILE_PATH = "src/main/java/org/example/test/Cars.txt";
 
     @Override

@@ -21,7 +21,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return String.format("Car{power=%d, model='%s', year=%d}", power, model, year);
+        return String.format("Car{ power=%d, model='%s', year=%d }", power, model, year);
     }
 
     @Override

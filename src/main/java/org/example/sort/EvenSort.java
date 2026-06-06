@@ -1,10 +1,14 @@
 package org.example.sort;
+import org.example.comparator.CarPowerComparator;
+import org.example.list.CustomList;
 import org.example.model.Car;
-import java.util.Comparator;
 
+import java.util.Arrays;
+
+// TODO Переписать под CustomList
 public class EvenSort {
 
-    public static void addCarSort(Car[] arr, Comparator<Car> comparator) {
+    public static void addCarSort(Car[] arr) {
         if (arr == null || arr.length <= 1) return;
         int count = 0;
         for (int i = 0; i < arr.length; i++) {
@@ -25,7 +29,7 @@ public class EvenSort {
             }
         }
 
-        Sort.quickSort(carsToSort, 0, count - 1, comparator);
+        //Sort.quickSort(carsToSort, 0, count - 1, new CarPowerComparator());
         for (int i = 0; i < count; i++) {
             arr[ind[i]] = carsToSort[i];
         }
