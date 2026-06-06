@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-public class DataFromFile implements CarDataInput {
+public class FileCarDataInput implements CarDataInput {
     private final String FILE_PATH = "src/main/java/org/example/test/Cars.txt";
 
     @Override
@@ -36,11 +36,10 @@ public class DataFromFile implements CarDataInput {
                 }
             });
             return cars;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Ошибка чтения файла: " + e.getMessage());
             e.printStackTrace();
-            return null;
+            return cars;
         }
     }
 }

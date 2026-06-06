@@ -1,12 +1,12 @@
 package org.example.test;
 
 import org.example.comparator.CarPowerComparator;
-import org.example.input.DataFromFile;
+import org.example.input.FileCarDataInput;
 import org.example.list.CustomList;
 import org.example.model.Car;
 
 public class ReadFromFileTest {
-    private DataFromFile dataFromFile;
+    private FileCarDataInput fileCarDataInput;
 
     public static void run() {
         Car car1 = new Car.Builder()
@@ -27,10 +27,10 @@ public class ReadFromFileTest {
                 .setYear(2012)
                 .build();
 
-        DataFromFile dataFromFile = new DataFromFile();
+        FileCarDataInput fileCarDataInput = new FileCarDataInput();
         CarPowerComparator comparator = new CarPowerComparator();
         //Чтение из файла
-        CustomList<Car> cars = dataFromFile.load(3);
+        CustomList<Car> cars = fileCarDataInput.load(3);
 
         boolean notNull = cars != null;
 

@@ -38,6 +38,11 @@ public class Car {
                 year == car.year;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(power, model, year);
+    }
+
     public static class Builder {
         private int power;
         private String model;

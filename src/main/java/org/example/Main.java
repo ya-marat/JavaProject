@@ -15,6 +15,7 @@ import org.example.list.CustomList;
 import org.example.model.Car;
 import org.example.multithreading.ThreadSearch;
 import org.example.sort.Sort;
+import org.example.sort.SortType;
 import org.example.util.FileReportWriter;
 
 
@@ -26,16 +27,16 @@ public class Main {
     private final ThreadSearch threadSearch = new ThreadSearch();
     private final ConsoleReader consoleReader = new ConsoleReader(scanner);
 
-    Map<Class<?>, CarDataInput> inputs = Map.of(
-            RandomCarDataCarDataInput.class, new RandomCarDataCarDataInput(),
-            ConsoleCarDataCarDataInput.class, new ConsoleCarDataCarDataInput(),
-            DataFromFile.class, new DataFromFile()
+    private final Map<InputType, CarDataInput> inputs = Map.of(
+            InputType.RANDOM, new RandomCarDataInput(),
+            InputType.CONSOLE, new ConsoleCarDataInput(),
+            InputType.FILE, new FileCarDataInput()
     );
 
-    Map<Class<?>, Comparator<Car>> comparators = Map.of(
-            CarModelComparator.class, new CarModelComparator(),
-            CarPowerComparator.class, new CarPowerComparator(),
-            CarYearComparator.class, new CarYearComparator()
+    private final Map<SortType, Comparator<Car>> comparators = Map.of(
+            SortType.MODEL, new CarModelComparator(),
+            SortType.POWER, new CarPowerComparator(),
+            SortType.YEAR, new CarYearComparator()
     );
 
 
@@ -96,13 +97,13 @@ public class Main {
 
         switch (source) {
             case 1:
-                carDataInput = inputs.get(DataFromFile.class);
+                carDataInput = inputs.get(InputType.FILE);
                 break;
             case 2:
-                carDataInput = inputs.get(RandomCarDataCarDataInput.class);
+                carDataInput = inputs.get(InputType.RANDOM);
                 break;
             case 3:
-                carDataInput = inputs.get(ConsoleCarDataCarDataInput.class);
+                carDataInput = inputs.get(InputType.CONSOLE);
                 break;
             default:
                 System.out.println("Ошибка выбора источника.");
@@ -144,13 +145,13 @@ public class Main {
 
         switch (type) {
             case 1:
-                comparator = comparators.get(CarPowerComparator.class);
+                comparator = comparators.get(SortType.POWER);
                 break;
             case 2:
-                comparator = comparators.get(CarModelComparator.class);
+                comparator = comparators.get(SortType.MODEL);
                 break;
             case 3:
-                comparator = comparators.get(CarYearComparator.class);
+                comparator = comparators.get(SortType.YEAR);
                 break;
             default:
                 System.out.println("Ошибка выбора типа сортировки.");
@@ -210,12 +211,3 @@ public class Main {
         }
     }
 }
-
-
-
-
-
-
-
-
-

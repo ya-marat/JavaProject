@@ -5,12 +5,29 @@ import org.example.model.Car;
 
 import java.util.stream.IntStream;
 
-public class RandomCarDataCarDataInput implements CarDataInput {
+public class RandomCarDataInput implements CarDataInput {
 
     String[] carModels = {
             "Toyota",
             "BMW",
+            "Mercedes-Benz",
+            "Audi",
+            "Volkswagen",
+            "Ford",
+            "Chevrolet",
+            "Honda",
+            "Nissan",
+            "Hyundai",
             "Kia",
+            "Lexus",
+            "Porsche",
+            "Ferrari",
+            "Lamborghini",
+            "Bentley",
+            "Rolls-Royce",
+            "Tesla",
+            "Volvo",
+            "Subaru"
     };
 
     private final int MIN_POWER_VALUE = 100;

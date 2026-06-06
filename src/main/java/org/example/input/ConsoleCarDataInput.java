@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 
-public class ConsoleCarDataCarDataInput implements CarDataInput {
+public class ConsoleCarDataInput implements CarDataInput {
     Scanner scanner = new Scanner(System.in);
 
     @Override
