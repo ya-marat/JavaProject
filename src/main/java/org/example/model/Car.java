@@ -64,13 +64,8 @@ public class Car {
         }
 
         public Car build() {
-            try {
-                Validator.validate(power, model, year);
-                return new Car(this);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-                return null;
-            }
+            Validator.validate(power, model, year);
+            return new Car(this);
         }
     }
 }

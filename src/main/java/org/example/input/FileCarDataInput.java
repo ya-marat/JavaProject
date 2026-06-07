@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 public class FileCarDataInput implements CarDataInput {
-    private final String FILE_PATH = "src/main/java/org/example/test/Cars.txt";
+    private final String FILE_PATH = "src/main/java/org/example/Cars.txt";
 
     @Override
     public CustomList<Car> load(int count) {
