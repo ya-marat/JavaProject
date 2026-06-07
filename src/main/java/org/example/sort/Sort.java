@@ -1,6 +1,7 @@
 package org.example.sort;
 import org.example.list.CustomList;
 import org.example.model.Car;
+
 import java.util.Comparator;
 
 public class Sort {
@@ -12,6 +13,7 @@ public class Sort {
                 quickSort(list, pi + 1, high, comparator);
             }
         }
+    }
 
         public static int partition(CustomList<Car> list, int low, int high, Comparator<Car> comparator) {
             Car pivot = list.get(high);
@@ -34,4 +36,5 @@ public class Sort {
             list.set(j, temp);
         }
     }
+}
 

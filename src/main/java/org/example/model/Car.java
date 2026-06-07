@@ -1,6 +1,10 @@
 package org.example.model;
 
-public class Car implements Comparable<Car> {
+import org.example.validation.Validator;
+
+import java.util.Objects;
+
+public class Car {
     private final int power;
     private final String model;
     private final int year;
@@ -15,25 +19,28 @@ public class Car implements Comparable<Car> {
     public String getModel() { return model; }
     public int getYear() { return year; }
 
-    // Базовая сортировка по всем 3 полям сразу
     @Override
-    public int compareTo(Car other) {
-        int idCompare = Integer.compare(this.power, other.power);
-        if (idCompare != 0) {
-            return idCompare;
-        }
-
-        int nameCompare = this.model.compareTo(other.model);
-        if (nameCompare != 0) {
-            return nameCompare;
-        }
-
-        return Integer.compare(this.year, other.year);
+    public String toString() {
+        return String.format("Car{ power=%d, model='%s', year=%d }", power, model, year);
     }
 
     @Override
-    public String toString() {
-        return String.format("Product{power=%d, model='%s', year=%d}", power, model, year);
+    public boolean equals(Object other) {
+        if (this == other)
+            return true;
+
+        if (!(other instanceof Car))
+            return false;
+
+        Car car = (Car) other;
+        return power == car.power  &&
+                Objects.equals(model, car.model) &&
+                year == car.year;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(power, model, year);
     }
 
     public static class Builder {
@@ -57,14 +64,13 @@ public class Car implements Comparable<Car> {
         }
 
         public Car build() {
-            validate();
-            return new Car(this);
-        }
-
-        private void validate() {
-            if (power <= 0) throw new IllegalArgumentException("Мощность должена быть больше 0");
-            if (model == null || model.trim().isEmpty()) throw new IllegalArgumentException("Модель не заполнена");
-            if (year < 0) throw new IllegalArgumentException("Год выпуска отрицательный");
+            try {
+                Validator.validate(power, model, year);
+                return new Car(this);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                return null;
+            }
         }
     }
 }
