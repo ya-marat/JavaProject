@@ -14,6 +14,7 @@ import org.example.input.*;
 import org.example.list.CustomList;
 import org.example.model.Car;
 import org.example.multithreading.ThreadSearch;
+import org.example.sort.EvenSort;
 import org.example.sort.Sort;
 import org.example.sort.SortType;
 import org.example.util.FileReportWriter;
@@ -127,7 +128,7 @@ public class Main {
                 break;
             case 2:
                 System.out.println("сортировка по четной мощности в разработке...");
-                //EvenSort.sort(cars);
+                EvenSort.sort(cars);
                 break;
 
             default:
