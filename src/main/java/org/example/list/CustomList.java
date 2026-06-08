@@ -16,6 +16,11 @@ public class CustomList<T> extends AbstractList<T> {
     }
 
     public CustomList(int size) {
+
+        if (size <= 0) {
+            throw new RuntimeException("Size cannot be negative or zero");
+        }
+
         elements = new Object[size];
     }
 

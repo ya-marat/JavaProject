@@ -8,7 +8,7 @@ public class CarYearComparatorTest {
 
 
     public static void run() {
-        System.out.println("Test");
+        System.out.println("=== CarYearComparatorTest ===");
         testCompareByYear();
 
     }
