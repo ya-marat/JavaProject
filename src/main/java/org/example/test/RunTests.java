@@ -5,5 +5,6 @@ public class RunTests {
         CarBuilderTest.testCreation();
         ReadFromFileTest.run();
         WriteToFileTest.run();
+        CarYearComparatorTest.run();
     }
 }
