@@ -16,7 +16,9 @@ public class ConsoleReader {
         while (true) {
 
             try {
-                return scanner.nextInt();
+                int value = scanner.nextInt();
+                scanner.nextLine();
+                return value;
             } catch (InputMismatchException e) {
 
                 System.out.println("Введите целое число.");
@@ -29,7 +31,7 @@ public class ConsoleReader {
 
         while (true) {
 
-            String model = scanner.next().trim();
+            String model = scanner.nextLine().trim();
 
             if (model.isBlank()) {
                 System.out.println("Строка не может быть пустой.");
