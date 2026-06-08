@@ -8,6 +8,7 @@ public class MultiThreadCount {
 
     public static void run() {
 
+        System.out.println("=== MultiThreadCountTest ===");
         testCountByModel();
         testCountByPower();
         testCountByYear();
