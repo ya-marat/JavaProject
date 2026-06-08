@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class FileReportWriter {
-    private static final String DEFAULT_EXPORT_FILE = "src/main/java/org/example/test/report_history.txt";
+    private static final String DEFAULT_EXPORT_FILE = "src/main/java/org/example/report_history.txt";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public static void saveResult(String operationType, CustomList<Car> cars) {

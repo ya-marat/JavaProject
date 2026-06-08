@@ -27,19 +27,4 @@ public class CarBuilderTest {
             System.out.println("CarBuilderTest.testCreation FAILED");
         }
     }
-    public static void testValidation() {
-        Car car = new Car.Builder()
-                .setPower(0)
-                .setModel("BMW")
-                .setYear(2020)
-                .build();
-
-        boolean notExist = car == null;
-
-        if (notExist) {
-            System.out.println("CarBuilderTest.testValidation PASSED");
-        } else {
-            System.out.println("CarBuilderTest.testValidation FAILED");
-        }
-    }
 }

@@ -26,3 +26,17 @@ Car{power=200, model='BMW', year=2010}
 Car{power=300, model='Audi', year=2015}
 Car{power=150, model='Mercedes', year=2012}
 
+========================================
+[2026-06-07 19:19:48] Операция: Добавление
+========================================
+Car{ power=200, model='BMW', year=2010 }
+Car{ power=300, model='Audi', year=2015 }
+Car{ power=150, model='Mercedes', year=2012 }
+
+========================================
+[2026-06-07 19:23:06] Операция: Добавление
+========================================
+Car{ power=200, model='BMW', year=2010 }
+Car{ power=300, model='Audi', year=2015 }
+Car{ power=150, model='Mercedes', year=2012 }
+
