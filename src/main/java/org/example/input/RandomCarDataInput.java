@@ -2,11 +2,10 @@ package org.example.input;
 
 import org.example.list.CustomList;
 import org.example.model.Car;
-import org.example.validation.Validator;
 
 import java.util.stream.IntStream;
 
-public class RandomCarDataInput implements Input<Car> {
+public class RandomCarDataInput implements CarDataInput {
 
     String[] carModels = {
             "Toyota",
@@ -35,7 +34,7 @@ public class RandomCarDataInput implements Input<Car> {
     private final int MAX_POWER_VALUE = 200;
 
     private final int MIN_MODEL_YEAR = 1920;
-    private final int MAX_MODEL_YEAR = 2026;
+    private final int MAX_MODEL_YEAR = 1922;
 
     @Override
     public CustomList<Car> load(int count) {
@@ -53,7 +52,7 @@ public class RandomCarDataInput implements Input<Car> {
         return result;
     }
 
-    public int getRandomNumber(int min, int max) {
+    private int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
 }

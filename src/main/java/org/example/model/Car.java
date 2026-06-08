@@ -1,5 +1,7 @@
 package org.example.model;
 
+import org.example.validation.Validator;
+
 import java.util.Objects;
 
 public class Car {
@@ -19,7 +21,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return String.format("Car{power=%d, model='%s', year=%d}", power, model, year);
+        return String.format("Car{ power=%d, model='%s', year=%d }", power, model, year);
     }
 
     @Override
@@ -34,6 +36,11 @@ public class Car {
         return power == car.power  &&
                 Objects.equals(model, car.model) &&
                 year == car.year;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(power, model, year);
     }
 
     public static class Builder {
@@ -57,7 +64,7 @@ public class Car {
         }
 
         public Car build() {
-            //ToDo DataValidator.isValid(power,model,year);
+            Validator.validate(power, model, year);
             return new Car(this);
         }
     }

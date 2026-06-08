@@ -3,38 +3,42 @@
 package org.example;
 
 
-
-
 import java.util.Comparator;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.example.comparator.CarModelComparator;
 import org.example.comparator.CarPowerComparator;
 import org.example.comparator.CarYearComparator;
-import org.example.input.ConsoleCarDataInput;
-import org.example.input.DataFromFile;
-import org.example.input.RandomCarDataInput;
+import org.example.input.*;
 import org.example.list.CustomList;
 import org.example.model.Car;
-import org.example.util.FileReportWriter;
-import org.example.sort.Sort;
+import org.example.multithreading.ThreadSearch;
 import org.example.sort.EvenSort;
-
-
-
+import org.example.sort.Sort;
+import org.example.sort.SortType;
+import org.example.util.FileReportWriter;
 
 
 // Обьединенный класс Main c Реализацией меню
 public class Main {
-    //поля класса
-    private final DataFromFile dataFromFile = new DataFromFile();
+
     private CustomList<Car> cars = new CustomList<>();
     private final Scanner scanner = new Scanner(System.in);
-    private final RandomCarDataInput randomCarDataInput = new RandomCarDataInput();
-    private final ConsoleCarDataInput consoleCarDataInput = new ConsoleCarDataInput();
-    private int size;
+    private final ThreadSearch threadSearch = new ThreadSearch();
+    private final ConsoleReader consoleReader = new ConsoleReader(scanner);
 
+    private final Map<InputType, CarDataInput> inputs = Map.of(
+            InputType.RANDOM, new RandomCarDataInput(),
+            InputType.CONSOLE, new ConsoleCarDataInput(),
+            InputType.FILE, new FileCarDataInput()
+    );
 
+    private final Map<SortType, Comparator<Car>> comparators = Map.of(
+            SortType.MODEL, new CarModelComparator(),
+            SortType.POWER, new CarPowerComparator(),
+            SortType.YEAR, new CarYearComparator()
+    );
 
 
     public static void main(String[] args) {
@@ -53,7 +57,7 @@ public class Main {
             System.out.println("5 - посчитать совпадения в нескольких потоках");
             System.out.println("0 - выход");
 
-            int choice = scanner.nextInt();
+            int choice = consoleReader.readInt();
             switch (choice) {
                 case 1:
                     fillCollection();
@@ -62,117 +66,107 @@ public class Main {
                     printCollection();
                     break;
                 case 3:
-                    //TODO: Подключено, но сортировка по четной мощности работает странно.
                     sortStyle();
                     break;
                 case 4:
-                    //TODO Непонятно FileReportWriter подключить или что-то другое будет создаваться, чтобы добавлять в файл
-                    //FileReportWriter.saveResult("Добавление", cars);
+                    FileReportWriter.saveResult("Добавление", cars);
                     break;
                 case 5:
-                    //TODO: Реализовать ThreadSearch
-                    System.out.println("Функция в разработке...");
+                    threadSearch();
                     break;
                 case 0:
                     System.out.println("Завершение работы...");
-                    scanner.close();
+                    consoleReader.closeInput();
                     return;
                 default:
                     System.out.println("Некорректный ввод!");
             }
         }
     }
+
     // Метод заполнения коллекции тремя способами
     private void fillCollection() {
 
-        this.size = sizeOfCollection();
+        int size = sizeOfCollection();
 
         System.out.println("Способы заполнения:\n1 - из файла\n2 - случайно\n3 - вручную");
         System.out.print("Выберите источник: ");
 
-        int source = scanner.nextInt();
+        int source = consoleReader.readInt();
+
+        CarDataInput carDataInput = null;
 
         switch (source) {
             case 1:
-                cars = dataFromFile.load(size);
+                carDataInput = inputs.get(InputType.FILE);
                 break;
             case 2:
-                cars = randomCarDataInput.load(size);
+                carDataInput = inputs.get(InputType.RANDOM);
                 break;
             case 3:
-                cars = consoleCarDataInput.load(size);
+                carDataInput = inputs.get(InputType.CONSOLE);
                 break;
             default:
                 System.out.println("Ошибка выбора источника.");
         }
+
+        if (carDataInput != null) {
+            cars = carDataInput.load(size);
+        }
     }
+
     // Метод выбора алгоритма сортировки
     private void sortStyle() {
-        if (cars == null || cars.isEmpty()) {
-            System.out.println("Коллекция пуста. Сортировка невозможна.");
-            return;
-        }
-
         System.out.println("Алгоритмы сортировки:\n1 - Обычная сортировка\n2 - сортировка только автомобилей с четной мощностью");
         System.out.print("Выберите алгоритм: ");
 
-        int type = scanner.nextInt();
-
-
-        // 2. CustomList в массив Car[] для работы алгоритмов сравнения
-        Car[] carArray = new Car[size];
-
-        for (int i = 0; i < size; i++) {
-            carArray[i] = cars.get(i);
-        }
+        int type = consoleReader.readInt();
 
         switch (type) {
             case 1:
-                Comparator<Car> selectedComparator = chooseComparator();
-                Sort.quickSort(carArray, 0, size - 1, selectedComparator);
-
+                sortCollection();
                 break;
             case 2:
-                Comparator<Car> chosenComparator = new CarPowerComparator();
-                EvenSort.addCarSort(carArray, chosenComparator);
-
+                System.out.println("сортировка по четной мощности в разработке...");
+                EvenSort.sort(cars);
                 break;
 
             default:
                 System.out.println("Ошибка выбора алгоритма сортировки.");
-                return;
-        }
-
-        // 4. Возвращаем отсортированные элементы назад в CustomList
-        for (int i = 0; i < size; i++) {
-            cars.set(i, carArray[i]);
         }
     }
 
-    // Вспомогательный метод определения критерия (какой компаратор применить)
-    private Comparator<Car> chooseComparator() {
-        System.out.println("Критерии сравнения:\n1 - Мощность\n2 - Модель\n3 - Год производства");
-        System.out.print("Выберите критерий: ");
+    // Метод сортировки по одному из полей
+    private void sortCollection() {
+        System.out.println("Способы сортировки:\n1 - мощность\n2 - модель\n3 - год производства");
+        System.out.print("Выберите поле сортировки: ");
+        Comparator<Car> comparator = null;
 
-        int criterion = scanner.nextInt();
-        switch (criterion) {
+        int type = consoleReader.readInt();
+
+        switch (type) {
             case 1:
-                return new CarPowerComparator();
+                comparator = comparators.get(SortType.POWER);
+                break;
             case 2:
-                return new CarModelComparator();
+                comparator = comparators.get(SortType.MODEL);
+                break;
             case 3:
-                return new CarYearComparator();
+                comparator = comparators.get(SortType.YEAR);
+                break;
             default:
-                System.out.println("Некорректный выбор. Применен компаратор по году.");
-                return new CarYearComparator();
+                System.out.println("Ошибка выбора типа сортировки.");
+        }
+
+        if (comparator != null) {
+            Sort.quickSort(cars, 0, cars.size() - 1, comparator);
         }
     }
 
     // Метод установки размера коллекции
     private int sizeOfCollection() {
         System.out.print("Введите количество элементов коллекции: ");
-        return scanner.nextInt();
-
+        return consoleReader.readInt();
     }
 
     // Метод вывода коллекции в консоль
@@ -182,17 +176,39 @@ public class Main {
             return;
         }
         System.out.println("--- Элементы коллекции ---");
-        for (Car car : cars) { System.out.println(car); }
-
+        for (Car car : cars) {
+            System.out.println(car);
+        }
     }
 
+    private void threadSearch() {
+
+        if (cars.isEmpty()) {
+            System.out.println("Коллекция пустая. Сначала заполните ее.");
+            return;
+        }
+
+        System.out.println("По какому полю произвести подсчет?\n1.Мощность\n2.Год\n3.Модель");
+        int type = consoleReader.readInt();
+
+        switch (type) {
+            case 1:
+                System.out.println("Введите значение мощности: ");
+                int power = consoleReader.readInt();
+                System.out.println("Колличество элементов по запросу Мощность: " + threadSearch.countByPower(cars, power));
+                break;
+            case 2:
+                System.out.println("Введите год: ");
+                int year = consoleReader.readInt();
+                System.out.println("Колличество элементов по запросу Год: " + threadSearch.countByYear(cars, year));
+                break;
+            case 3:
+                System.out.println("Введите модель: ");
+                String model = consoleReader.readString();
+                System.out.println("Колличество элементов по запросу Модель: " + threadSearch.countByModel(cars, model));
+                break;
+            default:
+                System.out.println("Ошибка выбора типа сортировки.");
+        }
+    }
 }
-
-
-
-
-
-
-
-
-

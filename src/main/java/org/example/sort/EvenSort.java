@@ -1,33 +1,37 @@
 package org.example.sort;
+
+import org.example.comparator.CarPowerComparator;
+import org.example.list.CustomList;
 import org.example.model.Car;
-import java.util.Comparator;
 
 public class EvenSort {
 
-    public static void addCarSort(Car[] arr, Comparator<Car> comparator) {
-        if (arr == null || arr.length <= 1) return;
+    public static void sort(CustomList<Car> list) {
+        if (list == null || list.size() <= 1) return;
         int count = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].getPower() % 2 == 0) {
+        for (int i = 0; i < list.size(); i++) {
+            Car car = list.get(i);
+            if (car != null && car.getPower() % 2 == 0) {
                 count++;
             }
         }
 
         if (count <= 1) return;
-        Car[] carsToSort = new Car[count];
+        CustomList<Car> carsToSort = new CustomList<>();
         int[] ind = new int[count];
         int j = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].getPower() % 2 == 0) {
-                carsToSort[j] = arr[i];
+        for (int i = 0; i < list.size(); i++) {
+            Car car = list.get(i);
+            if (car != null && car.getPower() % 2 == 0) {
+                carsToSort.add(car);
                 ind[j] = i;
                 j++;
             }
         }
 
-        Sort.quickSort(carsToSort, 0, count - 1, comparator);
+        Sort.quickSort(carsToSort, 0, count - 1, new CarPowerComparator());
         for (int i = 0; i < count; i++) {
-            arr[ind[i]] = carsToSort[i];
+            list.set(ind[i], carsToSort.get(i));
         }
     }
 }

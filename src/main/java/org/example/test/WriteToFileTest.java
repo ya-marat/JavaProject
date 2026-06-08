@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 public class WriteToFileTest {
 
     public static void run() {
-        Path path = Paths.get("src/main/java/org/example/test/report_history.txt");
+        Path path = Paths.get("src/main/java/org/example/report_history.txt");
 
         Car car1 = new Car.Builder()
                 .setPower(200)

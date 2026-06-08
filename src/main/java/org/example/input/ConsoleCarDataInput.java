@@ -7,13 +7,14 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 
-public class ConsoleCarDataInput implements Input<Car> {
-    Scanner scanner = new Scanner(System.in);
+public class ConsoleCarDataInput implements CarDataInput {
+    private final Scanner scanner = new Scanner(System.in);
+    private final ConsoleReader consoleReader = new ConsoleReader(scanner);
 
     @Override
     public CustomList<Car> load(int count) {
         return Stream.iterate(0, i -> i < count, i -> i + 1)
-                .map(i -> readFromConsole(scanner))
+                .map(i -> readFromConsole())
                 .collect(
                         CustomList::new,
                         CustomList::add,
@@ -25,15 +26,15 @@ public class ConsoleCarDataInput implements Input<Car> {
                 );
     }
 
-    private Car readFromConsole(Scanner scanner) {
+    private Car readFromConsole() {
         while (true) {
             try {
                 System.out.print("Введите значение мощности. Мощность должна быть больше нуля: ");
-                int power = scanner.nextInt();
+                int power = consoleReader.readInt();
                 System.out.print("Введите значение модели: ");
-                String model = scanner.next();
+                String model = consoleReader.readString();
                 System.out.print("Введите значение года: ");
-                int year = scanner.nextInt();
+                int year = consoleReader.readInt();
                 Validator.validate(power, model, year);
                 return new Car.Builder()
                         .setPower(power)

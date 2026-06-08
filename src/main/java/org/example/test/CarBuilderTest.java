@@ -19,12 +19,12 @@ public class CarBuilderTest {
             boolean yearTest = car.getYear() == 2020;
 
             if (powerTest && modelTest && yearTest) {
-                System.out.println("CarBuilderTest.testCreation PASSED!");
+                System.out.println("CarBuilderTest.testCreation PASSED");
             } else {
-                System.out.println("CarBuilderTest.testCreation FAILED!");
+                System.out.println("CarBuilderTest.testCreation FAILED");
             }
         } else {
-            System.out.println("CarBuilderTest.testCreation FAILED!");
+            System.out.println("CarBuilderTest.testCreation FAILED");
         }
     }
 }
