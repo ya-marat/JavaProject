@@ -39,9 +39,10 @@ public class CarYearComparatorTest {
         // Меняем местами для проверки обратного случая
         int result2 = comparator.compare(car2, car1);
 
-        if ((!(result1 < 0)) && (!(result2 > 0))) {
+        if ((!(result1 < 0)) || (!(result2 > 0))) {
             System.out.println("CarYearComparatorTest FAILED");
+        }else {
+            System.out.println("CarYearComparatorTest PASSED");
         }
-        System.out.println("CarYearComparatorTest PASSED");
     }
 }
