@@ -11,5 +11,6 @@ public class RunTests {
         CarYearComparatorTest.run();
         CustomListTest.run();
         MultiThreadCount.run();
+        SortTest.run();
     }
 }
