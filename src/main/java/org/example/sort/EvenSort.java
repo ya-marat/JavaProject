@@ -1,8 +1,7 @@
 package org.example.sort;
 import org.example.list.CustomList;
 import org.example.model.Car;
-
-import java.util.Arrays;
+import java.util.Comparator;
 
 // TODO Переписать под CustomList
 public class EvenSort {
