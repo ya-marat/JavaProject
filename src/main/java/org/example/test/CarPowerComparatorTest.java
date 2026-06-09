@@ -7,6 +7,8 @@ public class CarPowerComparatorTest {
 
     public static void run() {
 
+        System.out.println("=== CarPowerComparatorTest ===");
+
         Car car1 = new Car.Builder()
                 .setPower(100)
                 .setModel("BMW")

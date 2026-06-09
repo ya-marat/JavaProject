@@ -34,7 +34,7 @@ public class RandomCarDataInput implements CarDataInput {
     private final int MAX_POWER_VALUE = 200;
 
     private final int MIN_MODEL_YEAR = 1920;
-    private final int MAX_MODEL_YEAR = 1922;
+    private final int MAX_MODEL_YEAR = 2025;
 
     @Override
     public CustomList<Car> load(int count) {

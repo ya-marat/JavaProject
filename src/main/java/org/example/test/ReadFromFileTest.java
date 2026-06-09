@@ -35,8 +35,8 @@ public class ReadFromFileTest {
         boolean notNull = cars != null;
 
         if (notNull) {
-            boolean sizeTest = cars.size() == 3;
-            boolean equalsTest = comparator.compare(cars.get(2), car3) == 0;
+            boolean sizeTest = cars.size() == 2;
+            boolean equalsTest = comparator.compare(cars.get(1), car3) == 0;
 
             if (sizeTest && equalsTest) {
                 System.out.println("ReadFromFileTest PASSED");

@@ -8,7 +8,7 @@ public class CarYearComparatorTest {
 
 
     public static void run() {
-        System.out.println("Test");
+        System.out.println("=== CarYearComparatorTest ===");
         testCompareByYear();
 
     }
@@ -34,18 +34,15 @@ public class CarYearComparatorTest {
 
 
         // Ожидаем отицательное значение, так как car1 старше car2
-        int result = comparator.compare(car1, car2);
-        if (!(result < 0)) {
-            throw new RuntimeException("Expected negative value for comparison of cars.");
-        }
-        System.out.println("finish :" + result);
+        int result1 = comparator.compare(car1, car2);
 
         // Меняем местами для проверки обратного случая
-        result = comparator.compare(car2, car1);
-        if (!(result > 0)) {
-            throw new RuntimeException("Expected positive value for comparison of cars.");
-        }
-        System.out.println("finish :" + result);
+        int result2 = comparator.compare(car2, car1);
 
+        if ((!(result1 < 0)) || (!(result2 > 0))) {
+            System.out.println("CarYearComparatorTest FAILED");
+        }else {
+            System.out.println("CarYearComparatorTest PASSED");
+        }
     }
 }
