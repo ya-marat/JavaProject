@@ -3,7 +3,6 @@ import org.example.list.CustomList;
 import org.example.model.Car;
 import java.util.Comparator;
 
-// TODO Переписать под CustomList
 public class EvenSort {
 
     public static void addCarSort(CustomList<Car> list, Comparator<Car> comparator) {
