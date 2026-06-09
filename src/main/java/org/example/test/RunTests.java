@@ -4,6 +4,7 @@ public class RunTests {
     public static void main(String[] args) {
         CarBuilderTest.testCreation();
         WriteToFileTest.run();
+        CarYearComparatorTest.run();
         ReadFromFileTest.run();
         RandomCarDataInputTest.run();
         CarPowerComparatorTest.run();
