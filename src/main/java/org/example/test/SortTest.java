@@ -1,6 +1,8 @@
 package org.example.test;
 
 import org.example.comparator.CarModelComparator;
+import org.example.comparator.CarPowerComparator;
+import org.example.comparator.CarYearComparator;
 import org.example.list.CustomList;
 import org.example.model.Car;
 import org.example.sort.Sort;
@@ -9,7 +11,85 @@ public class SortTest {
 
     public static void run() {
         System.out.println("=== SortTest ===");
+        testSortYear();
+        testSortPower();
         testSortModel();
+    }
+
+    private static void testSortYear() {
+        CustomList<Car> testCars = new CustomList<Car>();
+        CustomList<Car> sortedCars = createSortCarsByYear();
+
+        Car car1 = new Car.Builder()
+                .setYear(2012)
+                .setPower(200)
+                .setModel("KIA")
+                .build();
+
+        Car car2 = new Car.Builder()
+                .setYear(2003)
+                .setPower(150)
+                .setModel("BMW")
+                .build();
+
+        Car car3 = new Car.Builder()
+                .setYear(2002)
+                .setPower(100)
+                .setModel("Audi")
+                .build();
+
+        testCars.add(car1);
+        testCars.add(car2);
+        testCars.add(car3);
+
+        Sort.quickSort(testCars, 0, testCars.size() - 1, new CarYearComparator());
+
+        testCars.forEach(it -> System.out.println(it.toString()));
+
+        boolean isPassed = testCars.equals(sortedCars);
+        if (isPassed) {
+            System.out.println("testSortYear PASSED");
+        } else {
+            System.out.println("testSortYear FAILED");
+        }
+    }
+
+    private static void testSortPower() {
+        CustomList<Car> testCars = new CustomList<Car>();
+        CustomList<Car> sortedCars = createSortCarsByPower();
+
+        Car car1 = new Car.Builder()
+                .setYear(2012)
+                .setPower(200)
+                .setModel("KIA")
+                .build();
+
+        Car car2 = new Car.Builder()
+                .setYear(2003)
+                .setPower(150)
+                .setModel("BMW")
+                .build();
+
+        Car car3 = new Car.Builder()
+                .setYear(2002)
+                .setPower(100)
+                .setModel("Audi")
+                .build();
+
+        testCars.add(car1);
+        testCars.add(car2);
+        testCars.add(car3);
+
+        Sort.quickSort(testCars, 0, testCars.size() - 1, new CarPowerComparator());
+
+        testCars.forEach(it -> System.out.println(it.toString()));
+
+        boolean isPassed = testCars.equals(sortedCars);
+        if (isPassed) {
+            System.out.println("testSortPower PASSED");
+        } else {
+            System.out.println("testSortPower FAILED");
+        }
     }
 
     private static void testSortModel() {
@@ -50,6 +130,64 @@ public class SortTest {
         } else {
             System.out.println("testSortModel FAILED");
         }
+    }
+
+    private static CustomList<Car> createSortCarsByYear() {
+
+        Car car1 = new Car.Builder()
+                .setYear(2002)
+                .setPower(100)
+                .setModel("Audi")
+                .build();
+
+        Car car2 = new Car.Builder()
+                .setYear(2003)
+                .setPower(150)
+                .setModel("BMW")
+                .build();
+
+        Car car3 = new Car.Builder()
+                .setYear(2012)
+                .setPower(200)
+                .setModel("KIA")
+                .build();
+
+        CustomList<Car> cars = new CustomList<Car>();
+        cars.add(car1);
+        cars.add(car2);
+        cars.add(car3);
+
+        return cars;
+
+    }
+
+    private static CustomList<Car> createSortCarsByPower() {
+
+        Car car1 = new Car.Builder()
+                .setYear(2002)
+                .setPower(100)
+                .setModel("Audi")
+                .build();
+
+        Car car2 = new Car.Builder()
+                .setYear(2003)
+                .setPower(150)
+                .setModel("BMW")
+                .build();
+
+        Car car3 = new Car.Builder()
+                .setYear(2012)
+                .setPower(200)
+                .setModel("KIA")
+                .build();
+
+        CustomList<Car> cars = new CustomList<Car>();
+
+        cars.add(car1);
+        cars.add(car2);
+        cars.add(car3);
+
+        return cars;
     }
 
     private static CustomList<Car> createSortCars() {

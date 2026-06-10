@@ -3,6 +3,7 @@ package org.example.sort;
 import org.example.comparator.CarPowerComparator;
 import org.example.list.CustomList;
 import org.example.model.Car;
+import java.util.Comparator;
 
 public class EvenSort {
 
