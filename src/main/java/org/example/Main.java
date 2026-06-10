@@ -124,10 +124,11 @@ public class Main {
 
         switch (type) {
             case 1:
+                System.out.println("выбрана обычная сортировка по одному из трех полей");
                 sortCollection();
                 break;
             case 2:
-                System.out.println("сортировка по четной мощности в разработке...");
+                System.out.println("выбрана сортировка по четной мощности");
                 EvenSort.sort(cars);
                 break;
 
@@ -138,7 +139,7 @@ public class Main {
 
     // Метод сортировки по одному из полей
     private void sortCollection() {
-        System.out.println("Способы сортировки:\n1 - мощность\n2 - модель\n3 - год производства");
+        System.out.println("Поля сортировки:\n1 - мощность\n2 - модель\n3 - год производства");
         System.out.print("Выберите поле сортировки: ");
         Comparator<Car> comparator = null;
 
@@ -146,12 +147,15 @@ public class Main {
 
         switch (type) {
             case 1:
+                System.out.println("выбрана сортировка по мощности");
                 comparator = comparators.get(SortType.POWER);
                 break;
             case 2:
+                System.out.println("выбрана сортировка по модели");
                 comparator = comparators.get(SortType.MODEL);
                 break;
             case 3:
+                System.out.println("выбрана сортировка по году производства");
                 comparator = comparators.get(SortType.YEAR);
                 break;
             default:
